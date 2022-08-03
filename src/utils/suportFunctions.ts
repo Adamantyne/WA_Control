@@ -1,10 +1,15 @@
-//import jwt from "jsonwebtoken";
-//import Cryptr from "cryptr";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+//import Cryptr from "cryptr";
+
+import userRepository from "../repositories/userRepository.js";
+import { sessionData } from "../schemas/authSchemas.js";
+import sessionRepository from "../repositories/sessionRepository.js";
 
 interface JWTData {
   email: string;
-  id: number
+  id: number;
 }
 
 dotenv.config();
@@ -21,21 +26,47 @@ export function throwErr(
   throw { type, message };
 }
 
-// export function createToken(data: {}) {
-//   const token = jwt.sign(data, process.env.JWT_SECRET);
-//   return token;
-// }
+export function createToken(data: { email: string; id: number }) {
+  const token = jwt.sign(data, process.env.JWT_SECRET);
+  return token;
+}
 
-// export function validateToken(token: string) {
-//   try {
-//     const jwtData = jwt.verify(token, process.env.JWT_SECRET);
-//     if (JWTDataValidate(jwtData)) {
-//       return jwtData.email;
-//     }
-//   } catch (error) {
-//     throwErr("unauthorized","Invalid Token");
-//   }
-// }
+export function validateToken(token: string) {
+  try {
+    const jwtData = jwt.verify(token, process.env.JWT_SECRET);
+    if (JWTDataValidate(jwtData) && jwtData.email && jwtData.id) {
+      return jwtData;
+    } else {
+      throwErr("unauthorized", "Invalid Token");
+    }
+  } catch (error) {
+    throwErr("unauthorized", "Invalid Token");
+  }
+}
+
+export async function validateUser(email: string) {
+  const validUser = await userRepository.findByEmail(email);
+  if (!validUser) {
+    throwErr("unauthorized", "unregistered email");
+  }
+  return validUser;
+}
+export async function validatePassword(
+  password: string,
+  encryptPassword: string
+) {
+  const validPassword = bcrypt.compareSync(password, encryptPassword);
+  if (!validPassword) {
+    throwErr("unauthorized", "incorrect password");
+  }
+}
+
+export async function validateSession(sessionData: sessionData) {
+  const validSession = await sessionRepository.getByTokenAndId(sessionData);
+  if (!validSession) {
+    throwErr("unauthorized", "invalid token");
+  }
+}
 
 // export function decryptString(encryptedString:string){
 //   return cryptr.decrypt(encryptedString);
@@ -44,4 +75,3 @@ export function throwErr(
 // export function encryptString(string:string){
 //   return cryptr.encrypt(string);
 // }
-

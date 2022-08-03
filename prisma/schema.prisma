@@ -8,7 +8,73 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String 
+  username String 
+  session Session[]
+  customer Customer[]
+  service Service[]
+  payment Payment[]
+  receipt Receipt[]
+
+  @@map("users")
+}
+
+model Session {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  token String @unique
+  loginAt DateTime @default(now())
+  logoutAt DateTime?
+
+  @@map("sessions")
+}
+
+model Customer {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  name String
+  establishment	String?
+  address String?
+  loginAt DateTime @default(now())
+  logoutAt DateTime?
+
+  @@unique([userId,name])
+  @@map("customers")
+}
+
+model Service {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  name String
+  value	Int
+  description String?
+
+  @@map("services")
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  description String
+  value	Int
+  paymentAt DateTime @default(now())
+
+  @@map("payments")
+}
+
+model Receipt {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  description String
+  value	Int
+  paymentAt DateTime @default(now())
+
+  @@map("receipts")
 }
