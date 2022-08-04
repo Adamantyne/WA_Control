@@ -7,7 +7,7 @@ import {
   validateSession,
 } from "../utils/suportFunctions.js";
 
-export default async function authValidator(
+export default async function tokenValidator(
   req: Request,
   res: Response,
   next: NextFunction
@@ -21,6 +21,6 @@ export default async function authValidator(
   const userData = await validateUser(jwtData.email);
   const sessionData = { token, userId: jwtData.id };
   await validateSession(sessionData);
-  res.locals.userId = userData.id;
+  res.locals.userId = {userId:userData.id};
   next();
 }

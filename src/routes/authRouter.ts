@@ -1,12 +1,13 @@
 import { Router } from "express";
 
 import schemaValidator from "../middlewares/schemaMiddleware.js";
-import { signUpSchema,signInSchema } from "../schemas/authSchemas.js";
+import { signUpSchema, signInSchema } from "../schemas/authSchemas.js";
 import {
   signUpMiddleware,
   signInMiddleware,
 } from "../middlewares/authMiddleware.js";
-import { signIn, signUp } from "../controllers/authController.js";
+import { signIn, signUp, signOut } from "../controllers/authController.js";
+import tokenValidator from "../middlewares/tokenMiddleware.js";
 
 const authRouter = Router();
 
@@ -22,5 +23,6 @@ authRouter.post(
   signInMiddleware,
   signIn
 );
+authRouter.post("/sign-out", tokenValidator, signOut);
 
 export default authRouter;

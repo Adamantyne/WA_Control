@@ -1,14 +1,13 @@
 import Joi from "joi";
 import { User,Session } from "@prisma/client";
 
-interface inputUserData extends User {
+export interface SignUpData extends Omit<User,"id" >{
   confirmPassword: string;
 }
 
-export type SignUpData = Omit<inputUserData, "id">;
 export type InsertUser = Omit<SignUpData, "confirmPassword">;
 export type SignInData = Omit<SignUpData, "confirmPassword" | "username">;
-export type sessionData = Omit<Session, "id"|"loginAt"|"logoutAt">;
+export type SessionData = Omit<Session, "id"|"loginAt"|"logoutAt">;
 
 export const signUpSchema = Joi.object<SignUpData>({
   email: Joi.string().email().required(),

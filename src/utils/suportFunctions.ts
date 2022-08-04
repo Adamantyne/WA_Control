@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 //import Cryptr from "cryptr";
 
 import userRepository from "../repositories/userRepository.js";
-import { sessionData } from "../schemas/authSchemas.js";
+import { SessionData } from "../schemas/authSchemas.js";
 import sessionRepository from "../repositories/sessionRepository.js";
 
 interface JWTData {
@@ -61,10 +61,16 @@ export async function validatePassword(
   }
 }
 
-export async function validateSession(sessionData: sessionData) {
-  const validSession = await sessionRepository.getByTokenAndId(sessionData);
+export async function validateSession(sessionData: SessionData) {
+  const validSession = await sessionRepository.findByTokenAndId(sessionData);
   if (!validSession) {
-    throwErr("unauthorized", "invalid token");
+    throwErr("unauthorized", "invalid or expired token");
+  }
+}
+
+export function isNaNValidate(value:number) {
+  if (Number.isNaN(value)) {
+    throwErr("unprocessable_entity", "customer id must be a numeric value");
   }
 }
 

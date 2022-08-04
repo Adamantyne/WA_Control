@@ -21,11 +21,11 @@ async function createSession({ email, id }: User) {
 }
 
 async function invalidatingLastSession(id: number) {
-  const lastSession = await sessionRepository.getLastSession(id);
+  const lastSession = await sessionRepository.findLastSession(id);
   if (lastSession) {
     await sessionRepository.invalidatingSessionById(lastSession.id);
   }
 }
 
-const authServices = { createUser, createSession };
+const authServices = { createUser, createSession, invalidatingLastSession };
 export default authServices;

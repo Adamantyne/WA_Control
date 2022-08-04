@@ -8,73 +8,87 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String 
-  username String 
-  session Session[]
+  id       Int        @id @default(autoincrement())
+  email    String     @unique
+  password String
+  username String
+  session  Session[]
   customer Customer[]
-  service Service[]
-  payment Payment[]
-  receipt Receipt[]
+  service  Service[]
+  payment  Payment[]
+  receipt  Receipt[]
 
   @@map("users")
 }
 
 model Session {
-  id Int @id @default(autoincrement())
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  token String @unique
-  loginAt DateTime @default(now())
+  id       Int       @id @default(autoincrement())
+  userId   Int
+  user     User      @relation(fields: [userId], references: [id])
+  token    String
+  loginAt  DateTime  @default(now())
   logoutAt DateTime?
 
   @@map("sessions")
 }
 
 model Customer {
-  id Int @id @default(autoincrement())
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  name String
-  establishment	String?
-  address String?
-  loginAt DateTime @default(now())
-  logoutAt DateTime?
+  id            Int            @id @default(autoincrement())
+  userId        Int
+  user          User           @relation(fields: [userId], references: [id])
+  name          String
+  establishment String?
+  address       String?
+  createAt      DateTime       @default(now())
+  deleteAt      DateTime?
+  phoneNumbers  PhoneNumbers[]
 
-  @@unique([userId,name])
+  @@unique([userId, name])
   @@map("customers")
 }
 
+model PhoneNumbers {
+  id           Int      @id @default(autoincrement())
+  customerId   Int      @unique
+  customer     Customer @relation(fields: [customerId], references: [id])
+  phoneNumber1 String?
+  phoneNumber2 String?
+  phoneNumber3 String?
+
+  @@map("phoneNumbers")
+}
+
 model Service {
-  id Int @id @default(autoincrement())
-  userId Int
-  user User @relation(fields: [userId], references: [id])
-  name String
-  value	Int
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  name        String
+  value       Int
   description String?
+  createAt    DateTime  @default(now())
+  deleteAt    DateTime?
 
   @@map("services")
 }
 
 model Payment {
-  id Int @id @default(autoincrement())
-  userId Int
-  user User @relation(fields: [userId], references: [id])
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
   description String
-  value	Int
-  paymentAt DateTime @default(now())
+  value       Int
+  paymentAt   DateTime @default(now())
 
   @@map("payments")
 }
 
 model Receipt {
-  id Int @id @default(autoincrement())
-  userId Int
-  user User @relation(fields: [userId], references: [id])
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
   description String
-  value	Int
-  paymentAt DateTime @default(now())
+  value       Int
+  receiptAt   DateTime @default(now())
 
   @@map("receipts")
 }

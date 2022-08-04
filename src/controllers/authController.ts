@@ -15,3 +15,9 @@ export async function signUp(req:Request,res:Response) {
     await authServices.createUser(inputData);
     res.sendStatus(201);
 }
+
+export async function signOut(req:Request,res:Response) {
+    const {userId}:{userId:number} = res.locals.userId;
+    await authServices.invalidatingLastSession(userId);
+    res.sendStatus(201);
+}

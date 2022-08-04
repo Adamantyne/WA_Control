@@ -1,8 +1,8 @@
 import db from "../config/database.js";
 
-import { sessionData } from "../schemas/authSchemas.js";
+import { SessionData } from "../schemas/authSchemas.js";
 
-async function getByTokenAndId({userId,token}:sessionData) {
+async function findByTokenAndId({userId,token}:SessionData) {
   return await db.session.findFirst({
     where: {
       userId,
@@ -12,14 +12,14 @@ async function getByTokenAndId({userId,token}:sessionData) {
   });
 }
 
-async function getLastSession(id: number) {
+async function findLastSession(userId: number) {
   return await db.session.findFirst({
     orderBy: {
       id: "desc",
     },
     take: 1,
     where: {
-      id,
+      userId,
       logoutAt: null,
     },
   });
@@ -36,14 +36,14 @@ async function invalidatingSessionById(id: number) {
   });
 }
 
-async function createSession(sessionData:sessionData) {
+async function createSession(sessionData:SessionData) {
     return await db.session.create({data:sessionData});
   }
 
 const sessionRepository = {
-  getLastSession,
+  findLastSession,
   invalidatingSessionById,
   createSession,
-  getByTokenAndId
+  findByTokenAndId
 };
 export default sessionRepository;
