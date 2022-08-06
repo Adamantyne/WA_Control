@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-import schemaValidator from "../middlewares/schemaMiddleware.js";
+import schemaValidator from "../middlewares/globalMiddlewares/schemaMiddleware.js";
 import { signUpSchema, signInSchema } from "../schemas/authSchemas.js";
 import {
   signUpMiddleware,
   signInMiddleware,
 } from "../middlewares/authMiddleware.js";
 import { signIn, signUp, signOut } from "../controllers/authController.js";
-import tokenValidator from "../middlewares/tokenMiddleware.js";
+import tokenValidator from "../middlewares/globalMiddlewares/tokenMiddleware.js";
 
 const authRouter = Router();
 

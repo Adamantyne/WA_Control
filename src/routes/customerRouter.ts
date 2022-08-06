@@ -5,20 +5,25 @@ import {
   getCustomers,
   getCustomer,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
 } from "../controllers/customerController.js";
 import {
   postCustomerMiddleware,
   customerMiddleware,
 } from "../middlewares/customerMiddleware.js";
-import schemaValidator from "../middlewares/schemaMiddleware.js";
-import tokenValidator from "../middlewares/tokenMiddleware.js";
+import schemaValidator from "../middlewares/globalMiddlewares/schemaMiddleware.js";
+import tokenValidator from "../middlewares/globalMiddlewares/tokenMiddleware.js";
 import { postCustomerSchema } from "../schemas/customerSchema.js";
 
 const customerRouter = Router();
 
 customerRouter.get("/customers", tokenValidator, getCustomers);
-customerRouter.get("/customers/:id", tokenValidator, getCustomer);
+customerRouter.get(
+  "/customers/:id",
+  tokenValidator,
+  customerMiddleware,
+  getCustomer
+);
 customerRouter.post(
   "/customers",
   tokenValidator,
@@ -31,6 +36,7 @@ customerRouter.post(
   tokenValidator,
   schemaValidator(postCustomerSchema),
   customerMiddleware,
+  postCustomerMiddleware,
   updateCustomer
 );
 customerRouter.delete(

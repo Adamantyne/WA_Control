@@ -66,7 +66,7 @@ async function insertPhoneNumbers(
   return await db.phoneNumbers.create({ data: { ...phones, customerId } });
 }
 
-async function updateCustomer(id: number, updateData: UpdateCustomer) {
+async function updateCustomerById(id: number, updateData: UpdateCustomer) {
   return await db.customer.update({
     where: { id },
     data: updateData,
@@ -83,7 +83,7 @@ async function updatePhoneNumbers(
   });
 }
 
-async function deleteCustomer( id: number) {
+async function deleteCustomerById( id: number) {
   const dataTime = new Date();
   return await db.customer.update({
     where: { id },
@@ -97,9 +97,9 @@ const customerRepository = {
   insertPhoneNumbers,
   findByUserId,
   findByIdAndUserId,
-  updateCustomer,
+  updateCustomerById,
   updatePhoneNumbers,
-  deleteCustomer
+  deleteCustomerById
 };
 
 export default customerRepository;

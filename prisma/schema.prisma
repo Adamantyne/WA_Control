@@ -8,15 +8,15 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  email    String     @unique
-  password String
-  username String
-  session  Session[]
-  customer Customer[]
-  service  Service[]
-  payment  Payment[]
-  receipt  Receipt[]
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  username    String
+  session     Session[]
+  customer    Customer[]
+  service     Service[]
+  transaction Transaction[]
+  product     Product[]
 
   @@map("users")
 }
@@ -43,7 +43,6 @@ model Customer {
   deleteAt      DateTime?
   phoneNumbers  PhoneNumbers[]
 
-  @@unique([userId, name])
   @@map("customers")
 }
 
@@ -59,36 +58,46 @@ model PhoneNumbers {
 }
 
 model Service {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   userId      Int
-  user        User      @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
   name        String
   value       Int
   description String?
-  createAt    DateTime  @default(now())
+  createAt    DateTime @default(now())
   deleteAt    DateTime?
 
   @@map("services")
 }
 
-model Payment {
+model Product {
   id          Int      @id @default(autoincrement())
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
-  description String
+  name        String
   value       Int
-  paymentAt   DateTime @default(now())
+  description String?
+  amount      Int      @default(0)
+  createAt    DateTime @default(now())
+  deleteAt    DateTime?
 
-  @@map("payments")
+  @@map("products")
 }
 
-model Receipt {
-  id          Int      @id @default(autoincrement())
+model Transaction {
+  id          Int              @id @default(autoincrement())
   userId      Int
-  user        User     @relation(fields: [userId], references: [id])
+  user        User             @relation(fields: [userId], references: [id])
   description String
   value       Int
-  receiptAt   DateTime @default(now())
+  type        TransactionTypes
+  paymentAt   DateTime         @default(now())
+  deleteAt    DateTime?
 
-  @@map("receipts")
+  @@map("transactions")
+}
+
+enum TransactionTypes {
+  payment
+  receipt
 }

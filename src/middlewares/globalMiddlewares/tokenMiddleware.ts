@@ -5,7 +5,7 @@ import {
   validateToken,
   validateUser,
   validateSession,
-} from "../utils/suportFunctions.js";
+} from "../../utils/suportFunctions.js";
 
 export default async function tokenValidator(
   req: Request,

@@ -6,7 +6,7 @@ import {
   UpdateCustomer,
 } from "../schemas/customerSchema.js";
 import { isNaNValidate } from "../utils/suportFunctions.js";
-import { customerValidate } from "../utils/queryValidations.js";
+import { customerValidate } from "../utils/customerValidations.js";
 
 async function createCustomer(
   customerData: CreateCustomer,
@@ -22,7 +22,6 @@ async function findCustomers(userId: number) {
 }
 
 async function findCustomer(customerId: string, userId: number) {
-  isNaNValidate(+customerId);
   const customer = await customerValidate(+customerId, userId);
   return customer;
 }
@@ -36,12 +35,12 @@ async function updateCustomer(
   const { address, establishment, name }: UpdateCustomer = InputCustomer;
   const updateCustomerData = { address, establishment, name };
   const phonesData = { phoneNumber1, phoneNumber2, phoneNumber3 };
-  await customerRepository.updateCustomer(+customerId, updateCustomerData);
+  await customerRepository.updateCustomerById(+customerId, updateCustomerData);
   await customerRepository.updatePhoneNumbers(+customerId, phonesData);
 }
 
 async function deleteCustomer(customerId: string) {
-  await customerRepository.deleteCustomer(+customerId);
+  await customerRepository.deleteCustomerById(+customerId);
 }
 
 const customerService = {
@@ -49,7 +48,7 @@ const customerService = {
   findCustomers,
   findCustomer,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
 };
 
 export default customerService;

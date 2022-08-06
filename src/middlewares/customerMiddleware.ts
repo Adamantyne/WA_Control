@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { InputCustomer } from "../schemas/customerSchema";
 import { isNaNValidate, throwErr } from "../utils/suportFunctions.js";
-import {customerValidate,customerAlreadyExist} from "../utils/queryValidations.js";
+import {customerValidate,customerAlreadyExist} from "../utils/customerValidations.js";
 
 export async function postCustomerMiddleware(
   req: Request,

@@ -4,7 +4,6 @@ import {
   CreateCustomer,
   InputCustomer,
   PhoneNumbersData,
-  UpdateCustomer,
 } from "../schemas/customerSchema";
 import customerService from "../services/customerServices.js";
 
@@ -39,5 +38,5 @@ export async function updateCustomer(req: Request, res: Response) {
 export async function deleteCustomer(req: Request, res: Response) {
   const {id:customerId} = req.params;
   await customerService.deleteCustomer(customerId);
-  res.sendStatus(201);
+  res.sendStatus(204);
 }
