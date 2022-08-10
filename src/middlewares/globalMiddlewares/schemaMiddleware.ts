@@ -3,10 +3,12 @@ import { NextFunction, Request, Response } from "express";
 
 export default function schemaValidator(schema: ObjectSchema) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const validation = schema.validate(req.body,{abortEarly:false});
-    if (validation.error) {
-      console.log(validation.error.message);
-      return res.status(422).send({ error: validation.error.message });
+    const {error} = schema.validate(req.body, { abortEarly: false });
+    if (error) {
+      let message = "";
+      console.log(error.details)
+      error.details.forEach((detail) => message+=`${detail.message}/ `);
+      return res.status(422).send(message);
     }
 
     next();

@@ -6,7 +6,12 @@ import {
   signUpMiddleware,
   signInMiddleware,
 } from "../middlewares/authMiddleware.js";
-import { signIn, signUp, signOut } from "../controllers/authController.js";
+import {
+  signIn,
+  signUp,
+  signOut,
+  checkToken,
+} from "../controllers/authController.js";
 import tokenValidator from "../middlewares/globalMiddlewares/tokenMiddleware.js";
 
 const authRouter = Router();
@@ -24,5 +29,6 @@ authRouter.post(
   signIn
 );
 authRouter.post("/sign-out", tokenValidator, signOut);
+authRouter.get("/token", tokenValidator, checkToken);
 
 export default authRouter;

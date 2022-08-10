@@ -52,6 +52,7 @@ async function findByUserId(userId: number) {
         },
       },
     },
+    orderBy: { name: "asc" }
   });
 }
 

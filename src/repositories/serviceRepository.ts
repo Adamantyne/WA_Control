@@ -23,6 +23,7 @@ async function findByIdAndUserId(id: number, userId: number) {
 async function findByUserId(userId: number) {
   return await db.service.findMany({
     where: { userId, deleteAt: null },
+    orderBy: { name: "asc" }
   });
 }
 

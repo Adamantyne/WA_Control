@@ -21,3 +21,7 @@ export async function signOut(req:Request,res:Response) {
     await authServices.invalidatingLastSession(userId);
     res.sendStatus(201);
 }
+
+export async function checkToken(req:Request,res:Response) {
+    res.sendStatus(200);
+}
