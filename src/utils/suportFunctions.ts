@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import dayjs from "dayjs";
 //import Cryptr from "cryptr";
 
 import userRepository from "../repositories/userRepository.js";
@@ -71,6 +72,12 @@ export async function validateSession(sessionData: SessionData) {
 export function isNaNValidate(value:number) {
   if (Number.isNaN(value)) {
     throwErr("unprocessable_entity", "customer id must be a numeric value");
+  }
+}
+
+export function dateValidate(date:string) {
+  if (!dayjs(date).isValid()) {
+    throwErr("unprocessable_entity", "date is not valid");
   }
 }
 

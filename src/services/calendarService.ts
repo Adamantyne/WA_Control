@@ -29,17 +29,17 @@ function getNumberOfDaysInMonths(year: number,min=1,max=12) {
 }
 
 function getDaysInMont(year: number, numberOfMonths: any) {
-  const yearCalendar = {};
+  const yearCalendar = [];
   for (let i = 0; i < numberOfMonths.length; i++) {
     const month = numberOfMonths[i][0];
     const numberOfDays = numberOfMonths[i][1];
-    const monthCalendar = {};
+    const monthCalendar = [];
     for (let j = 1; j <= numberOfDays; j++) {
       const day = j;
       const dayOfWeek = new Date(year, month-1, day).getDay();
-      monthCalendar[j] = dayOfWeek;
+      monthCalendar.push({day:j,dayOfWeek});
     }
-    yearCalendar[month] = monthCalendar;
+    yearCalendar.push(monthCalendar);
   }
   return yearCalendar;
 }

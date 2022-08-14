@@ -35,7 +35,7 @@ serviceRouter.post(
   updateService
 );
 serviceRouter.delete(
-  "/Services/:id",
+  "/services/:id",
   tokenValidator,
   serviceMiddleware,
   deleteService

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import {
   CreateService,
   InputService
-} from "../schemas/serviceSchema";
+} from "../schemas/serviceSchema.js";
 import serviceService from "../services/serviceServices.js";
 
 export async function postService(req: Request, res: Response) {

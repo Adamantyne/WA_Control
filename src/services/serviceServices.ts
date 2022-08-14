@@ -1,15 +1,10 @@
 import serviceRepository from "../repositories/serviceRepository.js";
-import {
-  CreateService,
-  InputService,
-} from "../schemas/serviceSchema.js";
+import { CreateService, InputService } from "../schemas/serviceSchema.js";
 import { isNaNValidate } from "../utils/suportFunctions.js";
 import { serviceValidate } from "../utils/serviceValidations.js";
 
-async function createService(
-  serviceData: CreateService
-) {
-  const { id } = await serviceRepository.insertService(serviceData);
+async function createService(serviceData: CreateService) {
+  await serviceRepository.insertService(serviceData);
 }
 
 async function findServices(userId: number) {
@@ -23,10 +18,7 @@ async function findService(serviceId: string, userId: number) {
   return service;
 }
 
-async function updateService(
-  serviceId: string,
-  serviceData: InputService
-) {
+async function updateService(serviceId: string, serviceData: InputService) {
   await serviceRepository.updateServiceById(+serviceId, serviceData);
 }
 

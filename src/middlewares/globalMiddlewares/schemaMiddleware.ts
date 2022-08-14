@@ -6,7 +6,6 @@ export default function schemaValidator(schema: ObjectSchema) {
     const {error} = schema.validate(req.body, { abortEarly: false });
     if (error) {
       let message = "";
-      console.log(error.details)
       error.details.forEach((detail) => message+=`${detail.message}/ `);
       return res.status(422).send(message);
     }

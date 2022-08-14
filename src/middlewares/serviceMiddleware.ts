@@ -36,7 +36,7 @@ export async function serviceMiddleware(
   const { userId }: { userId: number } = res.locals.userId;
   isNaNValidate(+serviceId);
 
-  const currentservice = await serviceValidate(+serviceId, userId);
+  const currentService = await serviceValidate(+serviceId, userId);
 
   next();
 }
