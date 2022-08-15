@@ -111,8 +111,8 @@ model Work {
   budget       String?
   value        Int?
   deliveryDate String?
-  delivered    Boolean       @default(false)
-  payed        Boolean       @default(false)
+  delivered    String?
+  paydate      String?
   createAt     DateTime      @default(now())
   deleteAt     DateTime?
   workService  WorkService[]

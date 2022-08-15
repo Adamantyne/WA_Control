@@ -31,6 +31,7 @@ export async function updateWorkMiddleware(
 
   dateValidate(workData.deliveryDate);
   dateValidate(workData.budgetDate);
+  dateValidate(workData.paydate);
 
   await customerValidate(workData.customerId, userId);
   res.locals.updateWorkData = workData;

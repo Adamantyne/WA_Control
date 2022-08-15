@@ -1,3 +1,4 @@
+import customerRepository from "../repositories/customerRepository.js";
 import workRepository from "../repositories/workRepository.js";
 import { CreateWork, InputUpdtaeWork } from "../schemas/workSchema.js";
 import { isNaNValidate } from "../utils/suportFunctions.js";

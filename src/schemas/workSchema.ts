@@ -18,5 +18,5 @@ export const updateWorkSchema = Joi.object<InputUpdtaeWork>({
   budget: Joi.string().max(100),
   deliveryDate: Joi.string(),
   delivered: Joi.boolean(),
-  payed:Joi.boolean(),
+  paydate:Joi.string(),
 });
