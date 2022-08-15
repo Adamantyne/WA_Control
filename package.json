@@ -5,10 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prisma-prod": "prisma migrate deploy && prisma db seed",
+    "prisma-prod": "prisma migrate deploy",
     "prisma-test": "dotenv -e .env.test prisma migrate reset --skip--seed",
     "build": "tsc && npm run prisma-prod",
-    "start": "node dist/src/index.js",
+    "start": "npm build && node dist/src/index.js",
     "dev": "nodemon src/index.ts",
     "dev:test": "npm run prisma-test && dotenv -e .env.test nodemon src/server.ts",
     "test": "npm run prisma-test && npm run test-options dotenv -e .env.test jest -- -i -- app.test.ts",
