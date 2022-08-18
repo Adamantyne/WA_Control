@@ -21,5 +21,13 @@ export const postCustomerSchema = Joi.object<InputCustomer>({
   phoneNumber3: Joi.string().min(9).pattern(numberMask),
 });
 
+export const updateCustomerSchema = Joi.object<InputCustomer>({
+  name: Joi.string(),
+  establishment: Joi.string(),
+  address: Joi.string(),
+  phoneNumber1: Joi.string().min(9).pattern(numberMask),
+  phoneNumber2: Joi.string().min(9).pattern(numberMask),
+  phoneNumber3: Joi.string().min(9).pattern(numberMask),
+});
 
 

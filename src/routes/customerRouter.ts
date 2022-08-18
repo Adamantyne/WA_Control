@@ -13,7 +13,7 @@ import {
 } from "../middlewares/customerMiddleware.js";
 import schemaValidator from "../middlewares/globalMiddlewares/schemaMiddleware.js";
 import tokenValidator from "../middlewares/globalMiddlewares/tokenMiddleware.js";
-import { postCustomerSchema } from "../schemas/customerSchema.js";
+import { postCustomerSchema, updateCustomerSchema } from "../schemas/customerSchema.js";
 
 const customerRouter = Router();
 
@@ -34,7 +34,7 @@ customerRouter.post(
 customerRouter.post(
   "/customers/:id",
   tokenValidator,
-  schemaValidator(postCustomerSchema),
+  schemaValidator(updateCustomerSchema),
   customerMiddleware,
   postCustomerMiddleware,
   updateCustomer

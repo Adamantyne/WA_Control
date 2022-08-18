@@ -5,7 +5,6 @@ import {
   InputCustomer,
   UpdateCustomer,
 } from "../schemas/customerSchema.js";
-import { isNaNValidate } from "../utils/suportFunctions.js";
 import { customerValidate } from "../utils/customerValidations.js";
 
 async function createCustomer(

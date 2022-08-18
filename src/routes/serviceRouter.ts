@@ -13,7 +13,7 @@ import {
 } from "../middlewares/serviceMiddleware.js";
 import schemaValidator from "../middlewares/globalMiddlewares/schemaMiddleware.js";
 import tokenValidator from "../middlewares/globalMiddlewares/tokenMiddleware.js";
-import { postServiceSchema } from "../schemas/serviceSchema.js";
+import { postServiceSchema, updateServiceSchema } from "../schemas/serviceSchema.js";
 
 const serviceRouter = Router();
 
@@ -29,7 +29,7 @@ serviceRouter.post(
 serviceRouter.post(
   "/services/:id",
   tokenValidator,
-  schemaValidator(postServiceSchema),
+  schemaValidator(updateServiceSchema),
   serviceMiddleware,
   postServiceMiddleware,
   updateService

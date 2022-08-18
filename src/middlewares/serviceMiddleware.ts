@@ -13,16 +13,17 @@ export async function postServiceMiddleware(
   next: NextFunction
 ) {
   const serviceData: InputService = req.body;
-  if (typeof serviceData.value !== "number") {
+  if (serviceData.value && typeof serviceData.value !== "number") {
     throwErr("unprocessable_entity", `"value" must be a number`);
   }
   const { userId }: { userId: number } = res.locals.userId;
   const { name } = serviceData;
 
-  const alreadyExist = await serviceAlreadyExist(userId, name);
-  if (alreadyExist) {
-    throwErr("conflict", `service "${name}" already exist`);
-  }
+  // const alreadyExist = await serviceAlreadyExist(userId, name);
+  // if (alreadyExist) {
+  //   throwErr("conflict", `service "${name}" already exist`);
+  // }
+  
   res.locals.createServiceData = { ...serviceData, userId };
   next();
 }

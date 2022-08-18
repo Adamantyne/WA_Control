@@ -9,3 +9,9 @@ export const postServiceSchema = Joi.object<InputService>({
   value: Joi.number().integer().min(0).required(),
   description: Joi.string(),
 });
+
+export const updateServiceSchema = Joi.object<InputService>({
+  name: Joi.string(),
+  value: Joi.number().integer().min(0),
+  description: Joi.string(),
+});
