@@ -111,7 +111,7 @@ model Work {
   budget       String?
   value        Int?
   deliveryDate String?
-  delivered    String?
+  delivered    Boolean       @default(false)
   paydate      String?
   createAt     DateTime      @default(now())
   deleteAt     DateTime?
