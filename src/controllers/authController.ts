@@ -7,7 +7,8 @@ import authServices from "../services/authServices.js";
 export async function signIn(req:Request,res:Response) {
     const userData:User = res.locals.userData;
     const token = await authServices.createSession(userData);
-    res.status(201).send({token});
+    const userInfos = await authServices.getUserInfos(userData.email);
+    res.status(201).send({token, userData: userInfos});
 }
 
 export async function signUp(req:Request,res:Response) {

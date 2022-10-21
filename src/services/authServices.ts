@@ -27,5 +27,12 @@ async function invalidatingLastSession(id: number) {
   }
 }
 
-const authServices = { createUser, createSession, invalidatingLastSession };
+async function getUserInfos(email: string) {
+  const userInfos = await userRepository.findByEmail(email);
+  delete userInfos.password;
+  delete userInfos.id;
+  return userInfos;
+}
+
+const authServices = { createUser, createSession, invalidatingLastSession, getUserInfos};
 export default authServices;
