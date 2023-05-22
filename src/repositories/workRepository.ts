@@ -15,6 +15,8 @@ async function findByIdAndUserId(id: number, userId: number) {
       deliveryDate: true,
       delivered: true,
       paydate: true,
+      observation: true,
+      payed: true,
       createAt: true,
       customer: {
         select: {
@@ -38,6 +40,8 @@ async function findByUserId(userId: number) {
       deliveryDate: true,
       delivered: true,
       paydate: true,
+      observation: true,
+      payed: true,
       createAt: true,
       customer: {
         select: {

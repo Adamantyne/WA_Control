@@ -112,7 +112,9 @@ model Work {
   value        Int?
   deliveryDate String?
   delivered    Boolean       @default(false)
+  payed        Boolean       @default(false)
   paydate      String?
+  observation  String?
   createAt     DateTime      @default(now())
   deleteAt     DateTime?
   workService  WorkService[]
