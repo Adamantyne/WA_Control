@@ -11,6 +11,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(json());
+console.log("entrando nas rotas");
 app.use(routers);
 app.use(handleError);
 
