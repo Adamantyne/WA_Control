@@ -1,0 +1,3 @@
+// "prisma-test": "dotenv -e .env.test prisma migrate reset --skip--seed","test": "npm run prisma-test && npm run test-options dotenv -e .env.test jest -- -i -- app.test.ts",
+// "test:unit": "npm run test-options jest -- -i --coverage --collectCoverageFrom=src/services/ -- unit.test.ts",
+// "test-options": "NODE_OPTIONS=--experimental-vm-modules","dev:test": "npm run prisma-test && dotenv -e .env.test nodemon src/server.ts"

@@ -6,14 +6,9 @@
   "main": "index.js",
   "scripts": {
     "prisma-prod": "prisma migrate deploy",
-    "prisma-test": "dotenv -e .env.test prisma migrate reset --skip--seed",
     "build": "tsc && npm run prisma-prod",
     "start": "node dist/src/index.js",
-    "dev": "nodemon src/index.ts",
-    "dev:test": "npm run prisma-test && dotenv -e .env.test nodemon src/server.ts",
-    "test": "npm run prisma-test && npm run test-options dotenv -e .env.test jest -- -i -- app.test.ts",
-    "test:unit": "npm run test-options jest -- -i --coverage --collectCoverageFrom=src/services/ -- unit.test.ts",
-    "test-options": "NODE_OPTIONS=--experimental-vm-modules"
+    "dev": "nodemon src/index.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
