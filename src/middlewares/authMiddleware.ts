@@ -14,6 +14,7 @@ export async function signUpMiddleware(
   res: Response,
   next: NextFunction
 ) {
+  console.log("tentando criar conta");
   const { email }: SignUpData = req.body;
   const alreadyExist = await userRepository.findByEmail(email);
   if (alreadyExist) {
@@ -27,6 +28,7 @@ export async function signInMiddleware(
   res: Response,
   next: NextFunction
 ) {
+  console.log("tentando entrar conta");
   const inputData: SignInData = req.body;
 
   const user: User = await validateUser(inputData.email);
