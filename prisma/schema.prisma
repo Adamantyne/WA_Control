@@ -110,6 +110,7 @@ model Work {
   budgetDate   String?
   budget       String?
   value        Int?
+  finished     Boolean       @default(false)
   deliveryDate String?
   delivered    Boolean       @default(false)
   payed        Boolean       @default(false)

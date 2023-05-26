@@ -17,6 +17,7 @@ async function findByIdAndUserId(id: number, userId: number) {
       paydate: true,
       observation: true,
       payed: true,
+      finished: true,
       createAt: true,
       customer: {
         select: {
@@ -42,6 +43,7 @@ async function findByUserId(userId: number) {
       paydate: true,
       observation: true,
       payed: true,
+      finished: true,
       createAt: true,
       customer: {
         select: {
